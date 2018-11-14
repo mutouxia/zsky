@@ -284,7 +284,7 @@ def search_results(query,page=1):
     for word in sensitivewordslist:
         if word.search(query):
             return redirect(url_for('index'))
-    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,password=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
+    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,passwd=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
     currzsky = connzsky.cursor()
     taginsertsql = 'REPLACE INTO search_tags(tag) VALUES(%s)'
     currzsky.execute(taginsertsql,[query])
@@ -316,7 +316,7 @@ def search_results_bylength(query,page=1):
     for word in sensitivewordslist:
         if word.search(query):
             return redirect(url_for('index'))
-    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,password=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
+    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,passwd=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
     currzsky = connzsky.cursor()
     taginsertsql = 'REPLACE INTO search_tags(tag) VALUES(%s)'
     currzsky.execute(taginsertsql,[query])
@@ -348,7 +348,7 @@ def search_results_bycreate_time(query,page=1):
     for word in sensitivewordslist:
         if word.search(query):
             return redirect(url_for('index'))
-    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,password=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
+    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,passwd=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
     currzsky = connzsky.cursor()
     taginsertsql = 'REPLACE INTO search_tags(tag) VALUES(%s)'
     currzsky.execute(taginsertsql,[query])
@@ -380,7 +380,7 @@ def search_results_byrequests(query,page=1):
     for word in sensitivewordslist:
         if word.search(query):
             return redirect(url_for('index'))
-    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,password=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
+    connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,passwd=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
     currzsky = connzsky.cursor()
     taginsertsql = 'REPLACE INTO search_tags(tag) VALUES(%s)'
     currzsky.execute(taginsertsql,[query])
@@ -459,7 +459,7 @@ class MyAdminIndexView(AdminIndexView):
     def index(self):
         if not current_user.is_authenticated:
             return redirect(url_for('admin.login_view'))
-        connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,password=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
+        connzsky = MySQLdb.connect(host=DB_HOST,port=DB_PORT_MYSQL,user=DB_USER,passwd=DB_PASS,db=DB_NAME_MYSQL,charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
         currzsky = connzsky.cursor()
         totalsql = 'select max(id) from search_hash'
         currzsky.execute(totalsql)
