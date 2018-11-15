@@ -464,7 +464,7 @@ class MyAdminIndexView(AdminIndexView):
         totalsql = 'select max(id) from search_hash'
         currzsky.execute(totalsql)
         totalcounts=currzsky.fetchall()
-        total=int(totalcounts[0]['max(id)'])
+        total = int(totalcounts[0]['max(id)']) if totalcounts[0]['max(id)'] else 0
         todaysql='select count(id) from search_hash where to_days(search_hash.create_time)= to_days(now())'
         currzsky.execute(todaysql)
         todaycounts=currzsky.fetchall()
