@@ -2,7 +2,7 @@
 
 #### 纸上烤鱼是从浩瀚的DHT网络（UDP）中获取磁力链接（magnet）信息的搜索引擎，主要分为爬虫、网站、数据库、索引，爬虫基于socket、bencode库，网站基于flask库，数据库为mysql，索引为sphinx，请勿用于非法用途
 
-**[加群](http://shang.qq.com/wpa/qunwpa?idkey=d119da6023cc49729a61139ca4b8bb0ee770d8d9a89383939c4a45159f82bc6d)获取安装脚本、更多模板、更多帮助**
+
 
 ![20180718164224.png](https://i.loli.net/2018/07/18/5b4efd8cedc94.png)
 
