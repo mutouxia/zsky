@@ -44,6 +44,8 @@
 
 执行  systemctl restart searchd   重新启动搜索进程
 
+/sitemap.xml  sitemap地址，默认查询sphinx索引里的最新100条记录，可以手动修改记录数
+
 **Q:如何绑定多个域名？**
 
 A：在/etc/nginx/nginx/nginx.conf文件内修改，多个域名用空格隔开，修改完成后执行nginx -s reload生效
