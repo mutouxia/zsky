@@ -26,9 +26,9 @@
 
 </div>
 <div id="sort-bar">
-<a href="#"><b>文件大小</b></a>
+<a href="#"><b>创建时间</b></a>
+<a href="{{url_for('search_results_bylength',query=query,page=1)}}">文件大小</a>
 <a href="{{url_for('search_results',query=query,page=1)}}">相关度</a>
-<a href="{{url_for('search_results_bycreate_time',query=query,page=1)}}">创建时间</a>
 <a href="{{url_for('search_results_byrequests',query=query,page=1)}}">热度</a>
 </div>
 <div id="content">
@@ -41,7 +41,7 @@
 {% for hash in hashs %}  
 <div class="search-item detail-width">
 <div class="item-title">
-<h3><a title="{{ hash.name }}" href="{{url_for('detail',info_hash=hash.info_hash)}}" target="_blank">{{ hash.name|replace(query, '<b>\\1</b>')|safe  }}</a></h3>
+<h3><a title="{{ hash.name }}" href="{{url_for('detail',info_hash=hash.info_hash)}}" target="_blank">{{ hash.name|replace(query, '<b>\\1</b>')|safe }}</a></h3>
 </div>
 <div class="item-list">
 <ul>
@@ -65,25 +65,25 @@
 {% endfor %} 
 <div class="bottom-pager detail-width">
 
-    {%if pages<10%}
+        {%if pages<10%}
 		{%if page==1%}
 		<span>上一页</span>
 		{%else%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=page-1 )}}">上一页</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=page-1 )}}">上一页</a>
 		{%endif%}
 		
 		{%for i in range(1,page)%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=i) }}">{{i}}</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=i) }}">{{i}}</a>
 		{%endfor%}
 		
 		<span>{{page}}</span>
 		
 		{%for i in range(page+1,pages)%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=i) }}">{{i}}</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=i) }}">{{i}}</a>
 		{%endfor%}
 		
 		{%if page<pages%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=page+1) }}">下一页</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=page+1) }}">下一页</a>
 		{%else%}
 		<span>下一页</span>
 		{%endif%}    
@@ -93,27 +93,27 @@
 		{%if page==1%}
 		<span>上一页</span>
 		{%else%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=page-1 )}}">上一页</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=page-1 )}}">上一页</a>
 		{%endif%}
 
 		{%if page>=6%}
 			{%for i in range(page-5,page)%}
-			<a href="{{ url_for('search_results_bylength', query=query,page=i) }}">{{i}}</a>
+			<a href="{{ url_for('search_results_bycreate_time', query=query,page=i) }}">{{i}}</a>
 			{%endfor%}
 		{%else%}
 			{%for i in range(1,page)%}
-			<a href="{{ url_for('search_results_bylength', query=query,page=i) }}">{{i}}</a>
+			<a href="{{ url_for('search_results_bycreate_time', query=query,page=i) }}">{{i}}</a>
 			{%endfor%}
 		{%endif%}
 		
 		<span>{{page}}</span>
 		
 		{%for i in range(page+1,page+5)%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=i) }}">{{i}}</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=i) }}">{{i}}</a>
 		{%endfor%}
 	
 		{%if page<pages%}
-		<a href="{{ url_for('search_results_bylength', query=query,page=page+1) }}">下一页</a>
+		<a href="{{ url_for('search_results_bycreate_time', query=query,page=page+1) }}">下一页</a>
 		{%else%}
 		<span>下一页</span>
 		{%endif%}

@@ -3,25 +3,18 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<title>{{hash.name}} - 纸上烤鱼,磁力链接,磁力搜索</title>
-<meta name="keywords" content=""/>
-<meta name="description" content="电影种子,磁力链接,迅雷链接,BT下载,尽在纸上烤鱼"/>
+<title>{{hash['name'].encode('utf8')}} - {{sitename}} 磁力链接,磁力搜索</title>
+<meta name="keywords" content="{%for fenci in fenci_list%}{{fenci.encode('utf8')}},{%endfor%}HOTDHT,磁力链接,磁力搜索"/>
+<meta name="description" content="电影种子,磁力链接,迅雷链接,BT下载,尽在{{sitename}}"/>
 <meta name="viewport" content="width=device-width"/>
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='default.css') }}"/>
 <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
 </head>
 <body>
 <div id="wrapper">
-<div class="top-bar"> <span class="first"><a href="/">种子搜索</a></span>
-<span class="second"><a href="/tags">种子大全</a></span>
-<span class="second"><a href="/top">排行</a></span>
-<select autocomplete="off" onchange="changeLanguage(this.value)">
-<option value="KR">한국어</option>
-<option value="EN">English</option>
-<option value="JP">日本語</option>
-<option value="CN" selected>简体中文</option>
-<option value="HK">繁體中文</option>
-</select>
+<div class="top-bar"><span class="first"><a href="/">种子搜索</a></span>
+<span><a href="{{url_for('tag')}}">标签</a></span>
+<span><a href="{{url_for('weekhot')}}">排行</a></span>
 </div>
 <div class="header-div">
 <form class="search-form"  action="{{url_for('search')}}" method="POST">
@@ -34,7 +27,7 @@
 
 <div id="content">
 <div id="wall">
-<h2>{{hash.name}}</h2>
+<h2>{{hash['name'].encode('utf8')}}</h2>
 <div class="detail-panel detail-width">
 <table class="detail-table detail-width">
 <tbody>
@@ -43,34 +36,65 @@
 <th>创建时间</th>
 <th>热度</th>
 <th>文件大小</th>
+<th>文件数量</th>
 </tr>
 <tr>
-<td>{{hash.category}}</td>
-<td>{{hash.create_time}}</td>
-<td>{{hash.requests}}</td>
+<td>{{hash['category']}}</td>
+<td>{{hash['create_time']|todate}}</td>
+<td>{{hash['requests']}}</td>
 <td>
-{% if hash.length>1073741824 %}
-{{(hash.length/1073741824)|round(2)}}G
-{% else %}{{(hash.length/1048576)|round(2)}}M
+{% if hash['length']>1073741824 %}
+{{(hash['length']/1073741824)|round(2)}}G
+{% else %}{{(hash['length']/1048576)|round(2)}}M
 {%endif%}
+</td>
+<td>
+{{(hash.info_hash|filelist)|count}}
 </td>
 </tr>
 </tbody>
 </table>
 <div class="detail-panel detail-width">
-<div class="panel-header">磁力链接</div>
+<div class="panel-header">磁力链接 <input style="float:right; margin-right:16px;" id="copy1" type="button" data-clipboard-target="magnet" value="复制磁力链接" class="">&nbsp;</div>
 <div class="panel-body">
-<a href="magnet:?xt=urn:btih:{{hash.info_hash | upper}}">magnet:?xt=urn:btih:{{hash.info_hash | upper}}</a>
+<div id="magnet">
+<img src="{{ url_for('static', filename='magnet.png')}}" ><a href="magnet:?xt=urn:btih:{{hash['info_hash'] | upper}}">magnet:?xt=urn:btih:{{hash['info_hash'] | upper}}</a>
+</div>
 </div>
 </div>
 <div class="detail-panel detail-width">
-<div class="panel-header">你可能喜欢</div>
+<div class="panel-header">迅雷下载 <input style="float:right; margin-right:16px;" id="copy2" type="button" data-clipboard-target="xlurl" value="复制迅雷链接" class="">&nbsp;</div>
+<div class="panel-body">
+<div id="xlurl">
+{% set magneturl=("magnet:?xt=urn:btih:"~hash['info_hash'] | upper) %}
+<img src="{{ url_for('static', filename='xunlei.png')}}" ><a href="thunder://{{magneturl|tothunder}}">thunder://{{magneturl|tothunder}}</a>
+</div>
+</div>
+</div>
+
+<div class="detail-panel detail-width">
+<div class="panel-header">种子标签</div>
 <div class="panel-body">
 {%for fenci in fenci_list%}
-<a href="{{url_for('search_results',query=fenci)}}">{{fenci}}</a>&nbsp;&nbsp;
+<a href="{{url_for('search_results',query=fenci,page=1)}}">{{fenci.encode('utf8')}}</a>&nbsp;&nbsp;
 {%endfor%}
 </div>
 </div>
+     
+<div class="detail-panel detail-width">
+<div class="panel-header">
+文件列表
+</div>
+<div class="panel-body">
+<ol>
+{%for f in (hash.info_hash|filelist)%}
+<li>{{f['path']}}&nbsp;<span class="cpill blue-pill">{{f['length']|filesizeformat}}</span></li>
+{% endfor %}
+</ol>
+</div>
+</div>
+
+     
 <div class="detail-panel detail-width">
 <div class="panel-header">友情提示</div>
 <div class="panel-body">
@@ -85,7 +109,7 @@
 </div>
 <div class="panel-body">
 <p>
-版权投诉/Complain Email：<a class="__cf_email__"  >hao123@hao123.com</a>
+版权投诉/Complain Email：<a class="__cf_email__"  >admin@hao123.Com</a>
 </p>
 </div>
 </div>
@@ -95,14 +119,5 @@
 </div>
 </div>
 </div>
-<div class="footer">
-<span><a href="#">纸上烤鱼</a></span> | <span><a href="#">种子搜索</a></span> | <span><a href="#">磁力链接</a></span>
-</div>
-
-<script charset="gbk" type="text/javascript" src="//www.baidu.com/js/opensug.js"></script>
-<script type="text/javascript">
-        var params = { "XOffset": 0, "YOffset": 0, "fontColor": "#444", "fontColorHI": "#000", "fontSize": "16px", "fontFamily": "arial", "borderColor": "gray", "bgcolorHI": "#ebebeb", "sugSubmit": false };
-        BaiduSuggestion.bind("search", params);
-    </script>
-</body>
-</html>
+     
+     {%include'footer.html'%}
