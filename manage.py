@@ -67,6 +67,7 @@ cache.init_app(app)
 DB_HOST='127.0.0.1'
 DB_NAME_MYSQL='zsky'
 DB_PORT_MYSQL=3306
+DB_HOST_SPHINX='127.0.0.1'
 DB_NAME_SPHINX='film'
 DB_PORT_SPHINX=9306
 DB_USER='root'
@@ -198,7 +199,7 @@ def tothunder_filter(magnet):
 app.add_template_filter(tothunder_filter,'tothunder')
 
 def sphinx_conn():
-    conn = MySQLdb.connect(host=DB_HOST, port=DB_PORT_SPHINX, user=DB_USER, passwd=DB_PASS, db=DB_NAME_SPHINX,
+    conn = MySQLdb.connect(host=DB_HOST_SPHINX, port=DB_PORT_SPHINX, user=DB_USER, passwd=DB_PASS, db=DB_NAME_SPHINX,
                            charset=DB_CHARSET, cursorclass=MySQLdb.cursors.DictCursor)
     curr = conn.cursor()
     return (conn,curr)
