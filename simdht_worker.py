@@ -5,7 +5,9 @@
 2017.7 我本戏子
 """
 
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import socket
 import hashlib
 import os
@@ -13,7 +15,6 @@ import SimpleXMLRPCServer
 import time
 import datetime
 import traceback
-import sys
 import json
 import threading
 from hashlib import sha1
